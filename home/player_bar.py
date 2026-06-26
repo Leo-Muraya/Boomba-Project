@@ -2,8 +2,8 @@ import customtkinter as ctk
 
 class PlayerBar:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(master=parent, height=110, fg_color="#0f1727")
-        self.frame.grid(row=1, column=0, columnspan=3, sticky="nsew")
+        self.frame = ctk.CTkFrame(master=parent, height=80, fg_color="#0d0d0d")
+        self.frame.grid(row=1, column=0, columnspan=3, sticky="nsew", padx = 5, pady = (0,5))
         self.frame.grid_propagate(False)
         self.frame.grid_columnconfigure(1, weight=1)
 
@@ -11,15 +11,15 @@ class PlayerBar:
 
     def _build(self):
         left_frame = ctk.CTkFrame(master=self.frame, fg_color="transparent")
-        left_frame.grid(row=0, column=0, sticky="w", padx=20, pady=10)
+        left_frame.grid(row=0, column=0, sticky="w", padx=8, pady=10)
 
         album_art = ctk.CTkLabel(
             master=left_frame,
             text="♫",
-            width=55,
-            height=55,
+            width=60,
+            height=60,
             fg_color="#1f2937",
-            corner_radius=12,
+            corner_radius=4,
             font=ctk.CTkFont(size=22)
         )
         album_art.pack(side="left", padx=(0, 10))
@@ -30,14 +30,14 @@ class PlayerBar:
         self.song_title = ctk.CTkLabel(
             master=song_info,
             text="Drank In My Cup",
-            font=ctk.CTkFont(size=13, weight="bold")
+            font=ctk.CTkFont(size=15, weight="bold")
         )
         self.song_title.pack(anchor="w")
 
         self.artist_name = ctk.CTkLabel(
             master=song_info,
             text="Kirko Bangz",
-            font=ctk.CTkFont(size=11),
+            font=ctk.CTkFont(size=13),
             text_color="gray"
         )
         self.artist_name.pack(anchor="w")
@@ -46,7 +46,7 @@ class PlayerBar:
         center_frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=10)
 
         controls_frame = ctk.CTkFrame(master=center_frame, fg_color="transparent")
-        controls_frame.pack(pady=(0, 10))
+        controls_frame.pack(pady=(0, 5))
 
         self.previous_btn = ctk.CTkButton(
             master=controls_frame,
@@ -56,18 +56,19 @@ class PlayerBar:
             hover_color="#1f2937",
             font=ctk.CTkFont(size=16)
         )
-        self.previous_btn.pack(side="left", padx=8)
+        self.previous_btn.pack(side="left", padx=6)
 
         self.play_btn = ctk.CTkButton(
             master=controls_frame,
             text="▶",
             width=50,
-            fg_color="#2563eb",
-            hover_color="#1d4ed8",
-            font=ctk.CTkFont(size=18),
-            corner_radius=50
+            fg_color="transparent",
+            # hover_color="#1d4ed8",
+            font=ctk.CTkFont(size=25),
+            corner_radius=50,
+            
         )
-        self.play_btn.pack(side="left", padx=8)
+        self.play_btn.pack(side="left", padx=6)
 
         self.next_btn = ctk.CTkButton(
             master=controls_frame,
@@ -77,10 +78,10 @@ class PlayerBar:
             hover_color="#1f2937",
             font=ctk.CTkFont(size=16)
         )
-        self.next_btn.pack(side="left", padx=8)
+        self.next_btn.pack(side="left", padx=6)
 
-        progress_frame = ctk.CTkFrame(master=center_frame, fg_color="transparent")
-        progress_frame.pack(fill="x")
+        progress_frame = ctk.CTkFrame(master=center_frame, fg_color="transparent", width =150)
+        progress_frame.pack(fill = "x")
 
         self.current_time = ctk.CTkLabel(
             master=progress_frame,
@@ -93,7 +94,8 @@ class PlayerBar:
         self.progress_bar = ctk.CTkProgressBar(
             master=progress_frame,
             fg_color="#1b2841",
-            progress_color="#2563eb"
+            progress_color="#2563eb",
+            
         )
         self.progress_bar.pack(side="left", fill="x", expand=True, padx=10)
         self.progress_bar.set(0.45)

@@ -4,7 +4,7 @@ class Sidebar:
     def __init__(self, parent):
         # sidebar frame
         self.frame = ctk.CTkFrame(master=parent, width=150, fg_color = "#1a1a2e")
-        self.frame.grid(row=0, column=0, sticky="nsew")
+        self.frame.grid(row=0, column=0, sticky="nsew", padx =(5,0), pady= 5)
         self.frame.grid_propagate(False)
 
         self._build()

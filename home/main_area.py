@@ -3,7 +3,7 @@ from logic.library import SONGS
 
 class MainArea:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(parent, fg_color="#16213e")
+        self.frame = ctk.CTkFrame(parent,fg_color="#16213e")
         self.frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
 
         self._build()
@@ -34,7 +34,7 @@ class MainArea:
         self._display_songs(SONGS)
 
     def _display_songs(self, songs):
-        # Clear existing rows
+       
         for widget in self.song_list_frame.winfo_children():
             widget.destroy()
 
@@ -42,15 +42,15 @@ class MainArea:
             self._create_song_row(index, song)
 
     def _create_song_row(self, index, song):
-        row = ctk.CTkFrame(self.song_list_frame, fg_color="#1a1a2e", corner_radius=8)
-        row.pack(fill="x", pady=4)
+        row = ctk.CTkFrame(master =self.song_list_frame, fg_color="#1a1a2e", corner_radius=8)
+        row.pack( pady=4, fill = "x")
 
         # Index number
         index_label = ctk.CTkLabel(row, text=str(index), width=30, font=ctk.CTkFont(size=12), text_color="gray")
         index_label.pack(side="left", padx=(15, 5), pady=10)
 
-        # Album art placeholder
-        art_label = ctk.CTkLabel(row, text="🎵", width=35, height=35, fg_color="#2a2a4a", corner_radius=6)
+        # initializing album art placeholder
+        art_label = ctk.CTkLabel(row, text="🎵", width=35, height=35, fg_color="#2a2a4a", corner_radius=4)
         art_label.pack(side="left", padx=10, pady=10)
 
         # Title and artist

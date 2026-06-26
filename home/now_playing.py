@@ -2,8 +2,8 @@ import customtkinter as ctk
 
 class NowPlaying:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(parent, width=220, fg_color="#1a1a2e")
-        self.frame.grid(row=0, column=2, sticky="nsew")
+        self.frame = ctk.CTkFrame(parent, width=320, fg_color="#1a1a2e")
+        self.frame.grid(row=0, column=2, sticky="nsew", padx =(0,5), pady = 5)
         self.frame.grid_propagate(False)
 
         self._build()
@@ -15,7 +15,7 @@ class NowPlaying:
             text="Now Playing",
             font=ctk.CTkFont(size=16, weight="bold")
         )
-        title.pack(pady=(20, 15), padx=20, anchor="w")
+        title.pack(pady=(20, 5), padx=25, anchor="w")
 
         # Album art placeholder
         self.album_art = ctk.CTkLabel(
@@ -27,16 +27,16 @@ class NowPlaying:
             corner_radius=15,
             font=ctk.CTkFont(size=60)
         )
-        self.album_art.pack(pady=(20, 25), padx = 20)
+        self.album_art.pack(pady=(5, 25), padx = 20)
 
         # Song title
         self.song_label = ctk.CTkLabel(
             self.frame,
             text="No song playing",
-            font=ctk.CTkFont(size=14, weight="bold"),
+            font=ctk.CTkFont(size=17, weight="bold"),
             wraplength=180
         )
-        self.song_label.pack(pady=(0, 5), padx=15)
+        self.song_label.pack(pady=(0, 2), padx=15)
 
         # Artist name
         self.artist_label = ctk.CTkLabel(

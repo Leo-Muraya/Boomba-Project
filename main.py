@@ -10,6 +10,7 @@ ctk.set_default_color_theme("blue")
 app = ctk.CTk()
 app.title("Boomba FM")
 app.geometry("1100x680")
+app.configure(fg_color = "#0d0d0d")
 
 app.iconbitmap("logo3.ico")
 
