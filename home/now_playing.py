@@ -24,7 +24,7 @@ class NowPlaying:
             width=280,
             height=280,
             fg_color="#2a2a4a",
-            corner_radius=15,
+            corner_radius=12,
             font=ctk.CTkFont(size=60)
         )
         self.album_art.pack(pady=(5, 15), padx = 15)
@@ -55,9 +55,12 @@ class NowPlaying:
             text_color="#4a90d9"
         )
         self.meta_label.pack(pady=(0, 20))
+        
 
     def update(self, song):
         """Call this method when a new song is selected"""
         self.song_label.configure(text=song.title)
         self.artist_label.configure(text=song.artist)
         self.meta_label.configure(text=f"{song.genre} • {song.duration}")
+
+    

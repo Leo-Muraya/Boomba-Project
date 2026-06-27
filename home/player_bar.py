@@ -1,8 +1,11 @@
 import customtkinter as ctk
+from customtkinter import CTkImage
+from PIL import Image 
+
 
 class PlayerBar:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(master=parent, height=75, fg_color="#0d0d0d")
+        self.frame = ctk.CTkFrame(master=parent, height=85, fg_color="#000000")
         self.frame.grid(row=2, column=0, columnspan=3, sticky="nsew", padx = 5, pady = (0,5))
         self.frame.grid_propagate(False)
         self.frame.grid_columnconfigure(1, weight=1)
@@ -46,39 +49,46 @@ class PlayerBar:
         center_frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=10)
 
         controls_frame = ctk.CTkFrame(master=center_frame, fg_color="transparent")
-        controls_frame.pack(pady=(0, 5))
+        controls_frame.pack(pady=(0, 0))
 
         self.previous_btn = ctk.CTkButton(
             master=controls_frame,
-            text="⏮",
+            text="<",
             width=40,
             fg_color="transparent",
             hover_color="#1f2937",
-            font=ctk.CTkFont(size=16)
+            font=ctk.CTkFont(size=25)
         )
-        self.previous_btn.pack(side="left", padx=6)
+        self.previous_btn.pack(side="left", padx=0)
 
+        # Load icons
+        play_icon = CTkImage(Image.open("assets/images/play.png"), size=(35, 35))
+        pause_icon = CTkImage(Image.open("assets/images/pause.png"), size=(45, 45))
+
+        # Store icons so we can switch between them later
+        self.play_icon = play_icon
+        self.pause_icon = pause_icon
+
+        # Play button
         self.play_btn = ctk.CTkButton(
-            master=controls_frame,
-            text="▶",
-            width=50,
+            controls_frame,
+            text="",
+            image=self.play_icon,
+            width=20,
+            height=20,
             fg_color="transparent",
-            # hover_color="#1d4ed8",
-            font=ctk.CTkFont(size=25),
-            corner_radius=50,
-            
+            hover_color="#000000",
+            corner_radius=25
         )
-        self.play_btn.pack(side="left", padx=6)
-
+        self.play_btn.pack(side="left", padx=5)
         self.next_btn = ctk.CTkButton(
             master=controls_frame,
-            text="⏭",
+            text=">",
             width=40,
             fg_color="transparent",
-            hover_color="#1f2937",
-            font=ctk.CTkFont(size=16)
+            font=ctk.CTkFont(size=25)
         )
-        self.next_btn.pack(side="left", padx=6)
+        self.next_btn.pack(side="left", padx=0)
 
         progress_frame = ctk.CTkFrame(master=center_frame, fg_color="transparent", width =150)
         progress_frame.pack(fill = "x")

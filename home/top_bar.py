@@ -2,7 +2,7 @@ import customtkinter as ctk
 
 class TopBar:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(parent, height=55, fg_color="#0d0d0d", corner_radius=0)
+        self.frame = ctk.CTkFrame(parent, height=55, fg_color="#000000", corner_radius=0)
         self.frame.grid(row=0, column=0, columnspan=3, sticky="ew", padx=10, pady=(5, 0))
         self.frame.grid_propagate(False)
 
@@ -55,6 +55,19 @@ class TopBar:
         # Login button on the right
         login_btn = ctk.CTkButton(
             self.frame,
+            text="Register",
+            width=80,
+            height=35,
+            fg_color="transparent",
+            hover_color="#2a2a4a",
+            border_width=1,
+            border_color="#4a90d9",
+            corner_radius=20
+        )
+        login_btn.pack(side="right", padx=5)
+        
+        login_btn = ctk.CTkButton(
+            self.frame,
             text="Login",
             width=80,
             height=35,
@@ -64,4 +77,4 @@ class TopBar:
             border_color="#4a90d9",
             corner_radius=20
         )
-        login_btn.pack(side="right", padx=15)
+        login_btn.pack(side="right", padx=5)

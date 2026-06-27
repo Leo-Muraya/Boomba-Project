@@ -12,7 +12,7 @@ ctk.set_default_color_theme("blue")
 app = ctk.CTk()
 app.title("Boomba FM")
 app.geometry("1100x680")
-app.configure(fg_color = "#0d0d0d")
+app.configure(fg_color = "#000000")
 app.iconbitmap("logo3.ico")
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("musicplayer.app")
 
