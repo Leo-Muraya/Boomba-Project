@@ -53,18 +53,18 @@ class TopBar:
         self.search_entry.pack(anchor="center",side = "left", padx=(50,20))
 
         # Login button on the right
-        login_btn = ctk.CTkButton(
+        Register_btn = ctk.CTkButton(
             self.frame,
             text="Register",
             width=80,
             height=35,
-            fg_color="transparent",
+            fg_color="#2563eb",
             hover_color="#2a2a4a",
             border_width=1,
             border_color="#4a90d9",
             corner_radius=20
         )
-        login_btn.pack(side="right", padx=5)
+        Register_btn.pack(side="right", padx=5)
         
         login_btn = ctk.CTkButton(
             self.frame,
