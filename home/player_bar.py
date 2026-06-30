@@ -33,7 +33,7 @@ class PlayerBar:
         self.song_title = ctk.CTkLabel(
             master=song_info,
             text="No Song",
-            font=ctk.CTkFont(size=13, weight="bold"),
+            font=ctk.CTkFont(family="SNFS Display Bold",size=16, weight="bold"),
             width=150,
             anchor="w"
         )

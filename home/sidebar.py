@@ -1,11 +1,12 @@
 import customtkinter as ctk
 
 class Sidebar:
-    def __init__(self, parent):
+    def __init__(self, parent,on_open_add_song=None):
         # sidebar frame
         self.frame = ctk.CTkFrame(master=parent, width=150, fg_color = "#1a1a2e")
         self.frame.grid(row=1, column=0, sticky="nsew", padx =(5,0), pady= 5)
         self.frame.grid_propagate(False)
+        self.on_open_add_song = on_open_add_song
 
         self._build()
     
@@ -16,7 +17,7 @@ class Sidebar:
 
         #nav buttons
 
-        nav_buttons = ["Explore", "Suggest", "Top Chart", "New Stuff"]
+        nav_buttons = ["Explore", "Added Songs"]
 
         for btn_text in nav_buttons:
             btn = ctk.CTkButton(
@@ -32,8 +33,8 @@ class Sidebar:
         
         #personal section label
 
-        personal_label = ctk.CTkLabel(master = self.frame, text ="Personal", font= ctk.CTkFont(family="SFNS Display Bold", size = 18))
-        personal_label.pack(pady = (20, 5), padx = 20, anchor = "w")
+        # personal_label = ctk.CTkLabel(master = self.frame, text ="Personal", font= ctk.CTkFont(family="SFNS Display Bold", size = 18))
+        # personal_label.pack(pady = (20, 5), padx = 20, anchor = "w")
 
         #personal buttons
 
@@ -58,7 +59,8 @@ class Sidebar:
             anchor="w",
             fg_color="transparent",
             hover_color="#2a2a4a",
-            font = ctk.CTkFont(family = "SFNS Display Bold", size = 13)
+            font = ctk.CTkFont(family = "SFNS Display Bold", size = 13),
+            command=lambda: self.on_open_add_song() if self.on_open_add_song else None
          
         )
 
