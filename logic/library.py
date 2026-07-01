@@ -12,7 +12,7 @@ SONGS = [
          "Asake",
          "Afrobeats",
          "3:03",
-         "logic/new resource/Asake - Nzaza (Official Video).mp3"),
+         "logic/new resource/nzaza.mp3"),
     
     Song("Blackbirds",
          "Lancey Foux",
