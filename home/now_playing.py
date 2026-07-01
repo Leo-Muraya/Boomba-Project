@@ -47,18 +47,10 @@ class NowPlaying:
         )
         self.artist_label.pack(pady=(0, 5),padx=(25,15), anchor = "w")
 
-        # Genre and duration
-        self.meta_label = ctk.CTkLabel(
-            self.frame,
-            text="",
-            font=ctk.CTkFont(size=11),
-            text_color="#4a90d9"
-        )
-        self.meta_label.pack(pady=(0, 20))
         
 
     def update(self, song):
-        """Call this method when a new song is selected"""
+        """updating when the new song is selected"""
         self.song_label.configure(text=song.title)
         self.artist_label.configure(text=song.artist)
         self.meta_label.configure(text=f"{song.genre} • {song.duration}")

@@ -1,14 +1,19 @@
 import customtkinter as ctk
 
+
 class Sidebar:
-    def __init__(self, parent,on_open_add_song=None):
+    def __init__(self, parent,on_open_add_song=None, on_explore = None):
         # sidebar frame
         self.frame = ctk.CTkFrame(master=parent, width=150, fg_color = "#1a1a2e")
         self.frame.grid(row=1, column=0, sticky="nsew", padx =(5,0), pady= 5)
         self.frame.grid_propagate(False)
         self.on_open_add_song = on_open_add_song
+        self.on_explore = on_explore
 
         self._build()
+    def _show_all_songs(self):
+     if self.on_explore:
+        self.on_explore()
     
     def _build(self):
         #App title
@@ -16,8 +21,21 @@ class Sidebar:
         app_label.pack(pady = (30 ,20), padx =20, anchor= "w")
 
         #nav buttons
+        
+     
 
-        nav_buttons = ["Explore", "Added Songs"]
+        explore_btn = ctk.CTkButton(
+           master=self.frame,
+           text="Explore",
+           anchor="w",
+           fg_color="transparent",
+           hover_color="#2a2a4a",
+           font=ctk.CTkFont(family="SFNS Display Bold", size=16),
+           command=self._show_all_songs
+)
+        explore_btn.pack(fill="x", padx=(20,10), pady=2)
+        nav_buttons = ["Added Songs"]
+        
 
         for btn_text in nav_buttons:
             btn = ctk.CTkButton(
@@ -26,16 +44,13 @@ class Sidebar:
                 anchor = "w",
                 fg_color="transparent",
                 hover_color ="#2a2a4a",
-                font=ctk.CTkFont(family = "SFNS Display Bold" ,size = 16)
+                font=ctk.CTkFont(family = "SFNS Display Bold" ,size = 16),
+                
             )
 
             btn.pack(fill="x", pady = 2, padx =(20,10))
         
-        #personal section label
-
-        # personal_label = ctk.CTkLabel(master = self.frame, text ="Personal", font= ctk.CTkFont(family="SFNS Display Bold", size = 18))
-        # personal_label.pack(pady = (20, 5), padx = 20, anchor = "w")
-
+      
         #personal buttons
 
         personal_buttons = ["Favorites", "Albums", "Playlist" , "Genres"]

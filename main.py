@@ -27,26 +27,28 @@ app.grid_columnconfigure(0, weight=0)
 app.grid_columnconfigure(1, weight=1)
 app.grid_columnconfigure(2, weight=0, minsize=280)
 
-# ── Initialize player ──────────────────────────────────
+#  Initialize player 
 player = MusicPlayer()
 player.load_library(SONGS)
 
-# ── Build UI (main_area must exist before add_song_dialog) ──
+
 top_bar = TopBar(app)
 now_playing = NowPlaying(app)
 main_area = MainArea(app)
 player_bar = PlayerBar(app)
 
-# ── Add song callback (must be defined before AddSongDialog uses it) ──
+
 def on_song_added(new_song):
     SONGS.append(new_song)
     main_area._display_songs(SONGS)
 
-# ── Now create the add song dialog ──────────────────────
+
 add_song_dialog = AddSongDialog(main_area.frame, on_song_added)
 
-# ── Now create sidebar, passing in the dialog's show method ──
-sidebar = Sidebar(app, on_open_add_song=add_song_dialog.show)
+def on_explore():
+    main_area._display_songs(SONGS)
+
+sidebar = Sidebar(app, on_open_add_song=add_song_dialog.show, on_explore=on_explore)
 
 # ── Connect song click to player ───────────────────────
 def on_song_selected(song):

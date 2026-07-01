@@ -112,7 +112,7 @@ class AddSongDialog:
         self.hide()
 
     def show(self):
-        # Overlay on top of the main area grid spot
+        # to be on top of the main area
         self.frame.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.7, relheight=0.8)
         self.frame.lift()
 
