@@ -52,11 +52,13 @@ sidebar = Sidebar(app, on_open_add_song=add_song_dialog.show, on_explore=on_expl
 
 # ── Connect song click to player ───────────────────────
 def on_song_selected(song):
+    print(f"Song selected: {song.title}")
     player.play(song)
     now_playing.update(song)
     player_bar.song_title.configure(text=song.title)
     player_bar.artist_name.configure(text=song.artist)
     player_bar.play_btn.configure(image=player_bar.pause_icon)
+    player_bar.update_album_art(song.image_path)
 
     next_index = (player.current_index + 1) % len(SONGS)
     next_song = SONGS[next_index]

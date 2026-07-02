@@ -1,10 +1,11 @@
 class Song:
-    def __init__(self, title,artist, genre, duration = "0.00", file_path = ""):
+    def __init__(self, title, artist, genre, duration="0:00", file_path="", image_path=""):
         self.title = title
         self.artist = artist
         self.genre = genre
         self.duration = duration
         self.file_path = file_path
+        self.image_path = image_path
 
 
 SONGS = [
