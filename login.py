@@ -12,22 +12,6 @@ login.iconbitmap("assets/icon.ico")
 login.resizable(False, False)
 
 
-correct_username = "Jeff"
-correct_password = "1234"
-
-
-def authentication ( username , password):
-    if username == correct_username  and password == correct_password:
-        main.run()
-        
-    else :
-        print (" Acces Denied")
-        
-    
-
-def click ():
-    print ("Login Button clicked")
-
 
 
 
