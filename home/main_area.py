@@ -1,26 +1,28 @@
 import customtkinter as ctk
 from logic.library import SONGS
 
+
 class MainArea:
     def __init__(self, parent):
         self.frame = ctk.CTkFrame(parent, fg_color="#16213e")
         self.frame.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
         self.on_song_selected = None
+        self.current_songs = SONGS
 
         self._build()
 
     def _build(self):
-        # Scrollable frame for song list
         self.song_list_frame = ctk.CTkScrollableFrame(self.frame, fg_color="transparent")
         self.song_list_frame.pack(fill="both", expand=True, padx=20, pady=(15, 20))
 
         self._display_songs(SONGS)
 
     def _display_songs(self, songs):
+        self.current_songs = list(songs) if songs else []
         for widget in self.song_list_frame.winfo_children():
             widget.destroy()
 
-        for index, song in enumerate(songs, start=1):
+        for index, song in enumerate(self.current_songs, start=1):
             self._create_song_row(index, song)
 
     def _create_song_row(self, index, song):
@@ -62,19 +64,18 @@ class MainArea:
         _bind_click(row)
 
     def set_song_callback(self, callback):
-        """Store the callback and rebuild song list with it"""
         self.on_song_selected = callback
-        self._display_songs(SONGS)
+        self._display_songs(self.current_songs)
 
     def search_songs(self, query):
         query = query.lower().strip()
 
         if query == "":
-            self._display_songs(SONGS)
+            self._display_songs(self.current_songs)
             return
 
         filtered = [
-            song for song in SONGS
+            song for song in self.current_songs
             if query in song.title.lower()
             or query in song.artist.lower()
             or query in song.genre.lower()

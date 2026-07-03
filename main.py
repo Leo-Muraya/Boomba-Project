@@ -8,13 +8,15 @@ from home.now_playing import NowPlaying
 from logic.player import MusicPlayer
 from logic.library import SONGS
 from home.add_song import AddSongDialog
+from home.create_playlist import CreatePlaylistDialog
+from logic.playlist import PlaylistManager
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
 app = ctk.CTk()
 app.title("Boomba FM")
-app.geometry("1100x680")
+app.geometry("1280x720")
 app.configure(fg_color="#000000")
 app.iconbitmap("assets/icon.ico")
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("musicplayer.app")
@@ -31,6 +33,8 @@ app.grid_columnconfigure(2, weight=0, minsize=280)
 player = MusicPlayer()
 player.load_library(SONGS)
 
+playlist_manager = PlaylistManager()
+current_songs = SONGS
 
 top_bar = TopBar(app)
 now_playing = NowPlaying(app)
@@ -41,18 +45,45 @@ player_bar = PlayerBar(app)
 def on_song_added(new_song):
     SONGS.append(new_song)
     main_area._display_songs(SONGS)
+    create_playlist_dialog.refresh_songs(SONGS)
 
 
 add_song_dialog = AddSongDialog(main_area.frame, on_song_added)
 
+
 def on_explore():
-    main_area._display_songs(SONGS)
+    global current_songs
+    current_songs = SONGS
+    player.load_library(current_songs)
+    main_area._display_songs(current_songs)
 
-sidebar = Sidebar(app, on_open_add_song=add_song_dialog.show, on_explore=on_explore)
 
-# ── Connect song click to player ───────────────────────
+def on_playlist_selected(playlist):
+    global current_songs
+    current_songs = playlist.songs
+    player.load_library(current_songs)
+    main_area._display_songs(current_songs)
+
+
+def on_playlist_created(name, songs):
+    playlist = playlist_manager.create_playlist(name, songs)
+    sidebar.refresh_playlists(playlist_manager.get_all_playlists())
+    on_playlist_selected(playlist)
+
+
+create_playlist_dialog = CreatePlaylistDialog(main_area.frame, on_playlist_created, SONGS)
+sidebar = Sidebar(
+    app,
+    on_open_add_song=add_song_dialog.show,
+    on_explore=on_explore,
+    on_open_create_playlist=create_playlist_dialog.show,
+    on_playlist_selected=on_playlist_selected,
+)
+
+#Connect song click to player
 def on_song_selected(song):
     print(f"Song selected: {song.title}")
+    player.load_library(current_songs)
     player.play(song)
     now_playing.update(song)
     player_bar.song_title.configure(text=song.title)
@@ -60,10 +91,7 @@ def on_song_selected(song):
     player_bar.play_btn.configure(image=player_bar.pause_icon)
     player_bar.update_album_art(song.image_path)
 
-    next_index = (player.current_index + 1) % len(SONGS)
-    next_song = SONGS[next_index]
-
-# ── Connect play/pause button ──────────────────────────
+#Connect play/pause button 
 def on_play_pause():
     player.toggle_play_pause()
     if player.is_playing:
