@@ -24,7 +24,7 @@ class PlayerBar:
         self._build()
 
     def _build(self):
-        # ── Left side ──────────────────────────────────
+        #Left side
         left_frame = ctk.CTkFrame(master=self.frame, fg_color="transparent", width=170)
         left_frame.grid(row=0, column=0, sticky="w", padx=8, pady=(1, 10))
 
@@ -65,7 +65,7 @@ class PlayerBar:
         )
         self.artist_name.pack(anchor="w", pady = 0)
 
-        # ── Center ─────────────────────────────────────
+        # Center
         center_frame = ctk.CTkFrame(master=self.frame, fg_color="transparent")
         center_frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=10)
         center_frame.grid_propagate(False)

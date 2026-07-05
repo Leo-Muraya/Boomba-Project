@@ -99,7 +99,7 @@ def on_play_pause():
     else:
         player_bar.play_btn.configure(image=player_bar.play_icon)
 
-# ── Connect next and previous ──────────────────────────
+# Connect next and previous
 def on_next():
     player.next_song()
     if player.current_song:
@@ -136,18 +136,19 @@ def update_progress():
     # Run this function again after 500ms
     app.after(500, update_progress)
 
-# ── Connect volume slider ──────────────────────────────
+#Connect volume slider 
 def on_volume_change(value):
     player.set_volume(value)
 
-# ── Connect seek (progress bar dragging) ───────────────
+#Connect seek (progress bar dragging)
 def on_seek(percentage):
     player.seek_to_percentage(percentage)
 
 def on_search(query):
     main_area.search_songs(query)
 
-# ── Assign buttons ─────────────────────────────────────
+#Assign buttons
+
 player_bar.play_btn.configure(command=on_play_pause)
 player_bar.next_btn.configure(command=on_next)
 player_bar.previous_btn.configure(command=on_previous)
@@ -155,7 +156,8 @@ player_bar.volume_slider.configure(command=on_volume_change)
 player_bar.on_seek = on_seek
 top_bar.on_search = on_search
 
-# ── Pass song click callback to main area ──────────────
+#Pass song click callback to main area
+
 main_area.set_song_callback(on_song_selected)
 
 update_progress()
