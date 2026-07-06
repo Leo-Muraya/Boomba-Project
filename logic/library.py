@@ -204,6 +204,15 @@ SONGS = [
          "4:37",
          "logic/new resource/JAY-Z - Empire State Of Mind ft. Alicia Keys.mp3",
          "logic/pictures/alicia-keys.jpg"),
+    Song(
+         "Through the Wire",
+         "Kanye West",
+         "Hip Hop",
+         "3.41",
+          "logic/new resource/19.Through The Wire.mp3",
+         "logic/pictures/college dropout.jpg"
+         
+    ),
 
     Song("Waka Waka (This Time for Africa)",
          "Shakira ft. Freshlyground",
@@ -231,7 +240,7 @@ SONGS = [
          "Hip Hop",
          "5:12",
          "logic/new resource/Kanye West - Stronger.mp3",
-         "logic/pictures/kanye west.jpg"),
+         "logic/pictures/graduation.jpg"),
 
     Song("Roses",
          "Kanye West",
@@ -245,7 +254,7 @@ SONGS = [
          "Hip Hop",
          "4:59",
          "logic/new resource/Kanye West - All Of The Lights ft. Rihanna, Kid Cudi.mp3",
-         "logic/pictures/kanye west.jpg"),
+         "logic/pictures/cover.jpg"),
 
     Song("Natural High",
          "Freddie Gibbs",

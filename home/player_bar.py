@@ -30,7 +30,7 @@ class PlayerBar:
 
         # Default album art thumbnail
         self.default_thumb = CTkImage(
-           round_image("assets/images/cover.jpg", (55, 55), radius=4),
+           round_image("assets/images/default.jpg", (55, 55), radius=4),
            size=(60, 60)
          )
 

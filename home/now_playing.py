@@ -36,7 +36,7 @@ class NowPlaying:
 
         # Default album art with rounded corners
         self.default_image = CTkImage(
-            round_image("assets/images/cover.jpg", (280, 280), radius=10),
+            round_image("assets/images/default.jpg", (280, 280), radius=10),
             size=(280, 280)
         )
 
