@@ -4,7 +4,7 @@ from logic.library import SONGS
 
 class MainArea:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(parent, fg_color="#16213e")
+        self.frame = ctk.CTkFrame(parent, fg_color="#2d2d34")
         self.frame.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
         self.on_song_selected = None
         self.current_songs = SONGS

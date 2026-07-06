@@ -17,7 +17,7 @@ def round_image(image_path, size, radius):
 
 class NowPlaying:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(parent, width=320, fg_color="#1a1a2e")
+        self.frame = ctk.CTkFrame(parent, width=320, fg_color="#2d2d34")
         self.frame.grid(row=1, column=2, sticky="nsew", padx=(0, 5), pady=5)
         self.frame.grid_propagate(False)
 
@@ -49,7 +49,7 @@ class NowPlaying:
             height=280,
             corner_radius=12,
         )
-        self.album_art.pack(pady=(5, 15), padx=15)
+        self.album_art.pack(pady=(5, 15), padx=0)
 
         # Song title
         self.song_label = ctk.CTkLabel(
@@ -92,16 +92,16 @@ class NowPlaying:
         self.song_label.configure(text=song.title)
         self.artist_label.configure(text=song.artist)
         self.meta_label.configure(text=f"{song.genre} • {song.duration}")
+        
+        print(f"Image path: {song.image_path}")
+        print(f"File exists: {os.path.exists(song.image_path)}")
+
 
         # Update album art
         if song.image_path and os.path.exists(song.image_path):
-            try:
-                pil_img = round_image(song.image_path, (280, 280), radius=10)
-                img = CTkImage(pil_img, size=(280, 280))
-                self.current_ctk_image = img  # prevent garbage collection
-                self.album_art.configure(image=img, text="")
-            except Exception as e:
-                print(f"Error loading image: {e}")
-                self.album_art.configure(image=self.default_image)
+            pil_img = round_image(song.image_path, (280, 280), radius=10)
+            img = CTkImage(pil_img, size=(280, 280))
+            self.current_ctk_image = img
+            self.album_art.configure(image=img, text="")
         else:
             self.album_art.configure(image=self.default_image)

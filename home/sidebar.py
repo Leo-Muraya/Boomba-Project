@@ -3,7 +3,7 @@ import customtkinter as ctk
 
 class Sidebar:
     def __init__(self, parent, on_open_add_song=None, on_explore=None, on_open_create_playlist=None, on_playlist_selected=None):
-        self.frame = ctk.CTkFrame(master=parent, width=150, fg_color="#1a1a2e")
+        self.frame = ctk.CTkFrame(master=parent, width=150, fg_color="#2d2d34")
         self.frame.grid(row=1, column=0, sticky="nsew", padx=(5, 0), pady=5)
         self.frame.grid_propagate(False)
         self.on_open_add_song = on_open_add_song

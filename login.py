@@ -64,7 +64,7 @@ password_label.pack(anchor="w", padx=30, pady=(0, 8))
 password = ctk.CTkEntry(
     master=main_frame,
     placeholder_text="Enter your password",
-    show="*",
+    show="•",
     height=45,
     border_width=2,
     border_color="#404040",
