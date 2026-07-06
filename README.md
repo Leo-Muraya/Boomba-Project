@@ -104,4 +104,3 @@ python login.py
 - Store playlists and library entries persistently.
 - Improve error handling for missing or unsupported audio files.
 - Enhance UI elements, including better album art loading and themed controls.
-

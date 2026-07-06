@@ -1,5 +1,7 @@
 import customtkinter as ctk
+from tkinter import messagebox
 import main
+import ctypes
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
@@ -10,14 +12,7 @@ login.geometry("500x600")
 login.configure(fg_color="#0d0d0d")
 login.iconbitmap("assets/icon.ico")
 login.resizable(False, False)
-
-
-
-
-
-
-
-
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("musicplayer.app")
 
 
 
@@ -79,6 +74,22 @@ password = ctk.CTkEntry(
 )
 password.pack(padx=30, pady=(0, 30), fill="x")
 
+
+def click():
+    user = username.get().strip()
+    pwd = password.get().strip()
+
+    if not user or not pwd:
+        messagebox.showerror("Login Error", "Please enter both username and password.")
+        return
+
+    if user != "Jeff" or pwd != "1234":
+        messagebox.showerror("Login Error", "Invalid username or password.")
+        return
+
+    login.destroy()
+    main.run_app()
+
 # Login button
 button = ctk.CTkButton(
     master=main_frame,
@@ -90,7 +101,7 @@ button = ctk.CTkButton(
     text_color="#ffffff",
     cursor="hand2",
     corner_radius=22,
-    command = click
+    command=click
 )
 button.pack(padx=110, pady=(0, 20), fill="x")
 
