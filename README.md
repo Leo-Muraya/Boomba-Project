@@ -100,7 +100,6 @@ python login.py
 
 ## Future Improvements
 
-- Add authentication and secure login flow.
 - Store playlists and library entries persistently.
 - Improve error handling for missing or unsupported audio files.
 - Enhance UI elements, including better album art loading and themed controls.
