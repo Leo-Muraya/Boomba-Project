@@ -1,12 +1,14 @@
 import customtkinter as ctk
 from logic.library import SONGS
+from logic.favorites import is_favorite
 
 
 class MainArea:
     def __init__(self, parent):
-        self.frame = ctk.CTkFrame(parent, fg_color="#16213e")
+        self.frame = ctk.CTkFrame(parent, fg_color="#2d2d34")
         self.frame.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
         self.on_song_selected = None
+        self.on_favorite_toggle = None
         self.current_songs = SONGS
 
         self._build()
@@ -17,16 +19,26 @@ class MainArea:
 
         self._display_songs(SONGS)
 
-    def _display_songs(self, songs):
+    def _display_songs(self, songs, empty_message="No songs in this view"):
         self.current_songs = list(songs) if songs else []
         for widget in self.song_list_frame.winfo_children():
             widget.destroy()
+
+        if not self.current_songs:
+            empty_label = ctk.CTkLabel(
+                self.song_list_frame,
+                text=empty_message,
+                font=ctk.CTkFont(size=13),
+                text_color="gray",
+            )
+            empty_label.pack(pady=20)
+            return
 
         for index, song in enumerate(self.current_songs, start=1):
             self._create_song_row(index, song)
 
     def _create_song_row(self, index, song):
-        row = ctk.CTkFrame(master=self.song_list_frame, fg_color="#1a1a2e", corner_radius=8)
+        row = ctk.CTkFrame(master=self.song_list_frame, fg_color="#0d0d0d", corner_radius=8)
         row.pack(pady=4, fill="x")
 
         # Index number
@@ -34,7 +46,7 @@ class MainArea:
         index_label.pack(side="left", padx=(15, 5), pady=10)
 
         # initializing album art placeholder
-        art_label = ctk.CTkLabel(row, text="🎵", width=35, height=35, fg_color="#2a2a4a", corner_radius=4)
+        art_label = ctk.CTkLabel(row, text="🎵", width=35, height=35, fg_color="#2d2d34", corner_radius=4)
         art_label.pack(side="left", padx=10, pady=10)
 
         # Title and artist
@@ -55,9 +67,24 @@ class MainArea:
         duration_label = ctk.CTkLabel(row, text=song.duration, font=ctk.CTkFont(size=11), text_color="gray")
         duration_label.pack(side="right", padx=15)
 
+        favorite_text = "♥" if is_favorite(song) else "♡"
+        favorite_color = "#ff6b6b" if is_favorite(song) else "gray"
+        favorite_btn = ctk.CTkButton(
+            row,
+            text=favorite_text,
+            width=28,
+            height=28,
+            fg_color="transparent",
+            hover_color="#2a2a4a",
+            text_color=favorite_color,
+            corner_radius=6,
+            command=self._make_favorite_toggle(song),
+        )
+        favorite_btn.pack(side="right", padx=(0, 8), pady=10)
+
         # Make row clickable (including all nested widgets, no matter how deep)
         def _bind_click(widget, s=song):
-            widget.bind("<Button-1>", lambda e, song=s: self.on_song_selected(song))
+            widget.bind("<Button-1>", self._make_song_click(s))
             for child in widget.winfo_children():
                 _bind_click(child, s)
 
@@ -66,6 +93,21 @@ class MainArea:
     def set_song_callback(self, callback):
         self.on_song_selected = callback
         self._display_songs(self.current_songs)
+
+    def set_favorite_callback(self, callback):
+        self.on_favorite_toggle = callback
+
+    def _make_favorite_toggle(self, song):
+        def toggle():
+            if self.on_favorite_toggle:
+                self.on_favorite_toggle(song)
+        return toggle
+
+    def _make_song_click(self, song):
+        def on_click(event):
+            if self.on_song_selected:
+                self.on_song_selected(song)
+        return on_click
 
     def search_songs(self, query):
         query = query.lower().strip()

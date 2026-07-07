@@ -1,4 +1,10 @@
 import customtkinter as ctk
+from datetime import datetime
+
+now = datetime.now()
+
+current_time = now.strftime("%H: %M : %S")
+
 
 class TopBar:
     def __init__(self, parent):
@@ -55,18 +61,7 @@ class TopBar:
         self.search_entry.bind("<KeyRelease>", self._on_search)
 
         # Login button on the right
-        Register_btn = ctk.CTkButton(
-            self.frame,
-            text="Register",
-            width=80,
-            height=35,
-            fg_color="#2563eb",
-            hover_color="#2a2a4a",
-            border_width=1,
-            border_color="#4a90d9",
-            corner_radius=20
-        )
-        Register_btn.pack(side="right", padx=5)
+       
         
         login_btn = ctk.CTkButton(
             self.frame,
@@ -77,11 +72,17 @@ class TopBar:
             hover_color="#2a2a4a",
             border_width=1,
             border_color="#4a90d9",
-            corner_radius=20
+            corner_radius=20,
+            command=self._open_login
         )
         login_btn.pack(side="right", padx=5)
+
+    def _open_login(self):
+        print (f"Login Button clicked at {current_time}")
+        from login import show_login
+        show_login()
         
-    def _on_search(self, event):
+    def _on_search(self,):
      if self.on_search:
         query = self.search_entry.get()
         self.on_search(query)

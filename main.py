@@ -10,6 +10,7 @@ from logic.library import SONGS
 from home.add_song import AddSongDialog
 from home.create_playlist import CreatePlaylistDialog
 from logic.playlist import PlaylistManager
+from logic.favorites import add_favorite, get_favorites, remove_favorite
 
 
 def run_app():
@@ -36,6 +37,7 @@ def run_app():
 
     playlist_manager = PlaylistManager()
     current_songs = SONGS
+    current_view = "explore"
 
     top_bar = TopBar(app)
     now_playing = NowPlaying(app)
@@ -50,13 +52,15 @@ def run_app():
     add_song_dialog = AddSongDialog(main_area.frame, on_song_added)
 
     def on_explore():
-        nonlocal current_songs
+        nonlocal current_songs, current_view
+        current_view = "explore"
         current_songs = SONGS
         player.load_library(current_songs)
         main_area._display_songs(current_songs)
 
     def on_playlist_selected(playlist):
-        nonlocal current_songs
+        nonlocal current_songs, current_view
+        current_view = "playlist"
         current_songs = playlist.songs
         player.load_library(current_songs)
         main_area._display_songs(current_songs)
@@ -66,6 +70,26 @@ def run_app():
         sidebar.refresh_playlists(playlist_manager.get_all_playlists())
         on_playlist_selected(playlist)
 
+    def on_show_favorites():
+        nonlocal current_songs, current_view
+        current_view = "favorites"
+        current_songs = get_favorites()
+        player.load_library(current_songs)
+        main_area._display_songs(current_songs, "No favorites yet")
+
+    def on_favorite_toggled(song):
+        nonlocal current_songs, current_view
+        if song in get_favorites():
+            remove_favorite(song.title)
+        else:
+            add_favorite(song)
+
+        if current_view == "favorites":
+            current_songs = get_favorites()
+            main_area._display_songs(current_songs, "No favorites yet")
+        else:
+            main_area._display_songs(current_songs)
+
     create_playlist_dialog = CreatePlaylistDialog(main_area.frame, on_playlist_created, SONGS)
     sidebar = Sidebar(
         app,
@@ -73,6 +97,7 @@ def run_app():
         on_explore=on_explore,
         on_open_create_playlist=create_playlist_dialog.show,
         on_playlist_selected=on_playlist_selected,
+        on_show_favorites=on_show_favorites,
     )
 
     def on_song_selected(song):
@@ -85,12 +110,13 @@ def run_app():
         player_bar.play_btn.configure(image=player_bar.pause_icon)
         player_bar.update_album_art(song.image_path)
 
-    def on_play_pause():
+    def on_play_pause(event=None):
         player.toggle_play_pause()
         if player.is_playing:
             player_bar.play_btn.configure(image=player_bar.pause_icon)
         else:
             player_bar.play_btn.configure(image=player_bar.play_icon)
+        return "break"
 
     def on_next():
         player.next_song()
@@ -141,6 +167,9 @@ def run_app():
     top_bar.on_search = on_search
 
     main_area.set_song_callback(on_song_selected)
+    main_area.set_favorite_callback(on_favorite_toggled)
+
+    app.bind("<space>", on_play_pause)
 
     update_progress()
     app.mainloop()
