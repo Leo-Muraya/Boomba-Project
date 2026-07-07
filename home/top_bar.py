@@ -1,4 +1,9 @@
 import customtkinter as ctk
+from datetime import datetime
+
+now = datetime.now()
+
+current_time = now.strftime("%H: %M : %S")
 
 
 class TopBar:
@@ -73,6 +78,7 @@ class TopBar:
         login_btn.pack(side="right", padx=5)
 
     def _open_login(self):
+        print (f"Login Button clicked at {current_time}")
         from login import show_login
         show_login()
         

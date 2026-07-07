@@ -85,12 +85,13 @@ def run_app():
         player_bar.play_btn.configure(image=player_bar.pause_icon)
         player_bar.update_album_art(song.image_path)
 
-    def on_play_pause():
+    def on_play_pause(event=None):
         player.toggle_play_pause()
         if player.is_playing:
             player_bar.play_btn.configure(image=player_bar.pause_icon)
         else:
             player_bar.play_btn.configure(image=player_bar.play_icon)
+        return "break"
 
     def on_next():
         player.next_song()
@@ -141,6 +142,8 @@ def run_app():
     top_bar.on_search = on_search
 
     main_area.set_song_callback(on_song_selected)
+    
+    app.bind("<space>", on_play_pause)
 
     update_progress()
     app.mainloop()

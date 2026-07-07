@@ -13,6 +13,7 @@ class MusicPlayer:
         self.is_playing = False
         self.songs = []
         self.song_length = 0
+        self.seek_offset = 0
         self.seek_remember = 0
 
     def load_library(self, songs):
@@ -30,23 +31,23 @@ class MusicPlayer:
      self.seek_offset = 0  # reset offset for new song
 
      pygame.mixer.music.load(song.file_path)
-     pygame.mixer.music.play()
+     pygame.mixer.music.play(start=0)
 
      audio = MP3(song.file_path)
      self.song_length = audio.info.length
+
     def get_position(self):
      """Returns how many seconds into the song we are"""
      if self.is_playing:
         pos = pygame.mixer.music.get_pos() / 1000
         return self.seek_offset + pos
-     return 0
+     return self.seek_offset
     
     def seek(self, seconds):
         '''this jumps to a specific part of the song'''
-        
+        self.seek_offset = seconds
+        self.is_playing = True
         pygame.mixer.music.play(start=seconds)
-        
-        
 
     def pause(self):
         """Pause the current song"""
@@ -65,7 +66,7 @@ class MusicPlayer:
      if self.current_song and self.song_length > 0:
         seek_seconds = percentage * self.song_length
         self.seek_remember = seek_seconds  # remember where we jumped to
-        pygame.mixer.music.play(start=seek_seconds)
+        self.seek(seek_seconds)
 
     def toggle_play_pause(self):
         """Switch between play and pause"""

@@ -58,7 +58,7 @@ class NowPlaying:
             font=ctk.CTkFont(family="SFNS Display Bold", size=25, weight="bold"),
             wraplength=270
         )
-        self.song_label.pack(anchor="w", pady=(0, 2), padx=(13, 15))
+        self.song_label.pack(anchor="w", pady=(0, 2), padx=(10, 15))
 
         # Artist name
         self.artist_label = ctk.CTkLabel(
