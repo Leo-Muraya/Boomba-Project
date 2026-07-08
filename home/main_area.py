@@ -64,8 +64,8 @@ class MainArea:
         genre_label.pack(side="left", padx=10)
 
         # Duration
-        duration_label = ctk.CTkLabel(row, text=song.duration, font=ctk.CTkFont(size=11), text_color="gray")
-        duration_label.pack(side="right", padx=15)
+        # duration_label = ctk.CTkLabel(row, text=song.duration, font=ctk.CTkFont(size=11), text_color="gray")
+        # duration_label.pack(side="right", padx=15)
 
         favorite_text = "♥" if is_favorite(song) else "♡"
         favorite_color = "#ff6b6b" if is_favorite(song) else "gray"
