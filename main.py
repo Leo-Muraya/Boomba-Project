@@ -118,12 +118,12 @@ def run_app():
             player_bar.play_btn.configure(image=player_bar.play_icon)
         return "break"
 
-    def on_next():
+    def on_next(event = None):
         player.next_song()
         if player.current_song:
             on_song_selected(player.current_song)
 
-    def on_previous():
+    def on_previous(event = None):
         player.previous_song()
         if player.current_song:
             on_song_selected(player.current_song)
@@ -170,6 +170,8 @@ def run_app():
     main_area.set_favorite_callback(on_favorite_toggled)
 
     app.bind("<space>", on_play_pause)
+    app.bind("<Control-Right>", on_next)
+    app.bind("<Control-Left>", on_previous)
 
     update_progress()
     app.mainloop()
