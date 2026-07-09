@@ -7,7 +7,7 @@ def round_image(image_path, size, radius):
     img = Image.open(image_path).resize(size)
     mask = Image.new("L", size, 0)
     draw = ImageDraw.Draw(mask)
-    draw.rounded_rectangle([(0, 0), size], radius=radius, fill=255)
+    draw.rounded_rectangle([(0, 0), size], radius=4, fill=255)
     img = img.convert("RGBA")
     img.putalpha(mask)
     return img

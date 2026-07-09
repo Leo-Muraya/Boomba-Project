@@ -82,7 +82,7 @@ class TopBar:
         from login import show_login
         show_login()
         
-    def _on_search(self,):
-     if self.on_search:
-        query = self.search_entry.get()
-        self.on_search(query)
+    def _on_search(self, event=None):
+        if self.on_search:
+            query = self.search_entry.get()
+            self.on_search(query)
