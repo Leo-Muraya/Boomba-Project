@@ -69,23 +69,23 @@ class Sidebar:
         )
         explore_btn.pack(fill="x", padx=(20, 10), pady=2)
 
-        nav_buttons = ["Added Songs"]
-        for btn_text in nav_buttons:
-            btn = ctk.CTkButton(
-                master=self.frame,
-                text=btn_text,
-                anchor="w",
-                fg_color="transparent",
-                hover_color="#2a2a4a",
-                font=ctk.CTkFont(family="SFNS Display Bold", size=16),
-            )
-            btn.pack(fill="x", pady=2, padx=(20, 10))
+        # nav_buttons = ["Added Songs"]
+        # for btn_text in nav_buttons:
+        #     btn = ctk.CTkButton(
+        #         master=self.frame,
+        #         text=btn_text,
+        #         anchor="w",
+        #         fg_color="transparent",
+        #         hover_color="#2a2a4a",
+        #         font=ctk.CTkFont(family="SFNS Display Bold", size=16),
+        #     )
+        #     btn.pack(fill="x", pady=2, padx=(20, 10))
 
-        personal_buttons = ["Favorites", "Albums", "Genres"]
+        personal_buttons = ["Favorites"]
         button_commands = {
             "Favorites": self._show_favorites,
-            "Albums": None,
-            "Genres": None,
+            # "Albums": None,
+            # "Genres": None,
         }
         for btn_text in personal_buttons:
             btn = ctk.CTkButton(
