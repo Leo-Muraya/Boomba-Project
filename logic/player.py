@@ -44,32 +44,32 @@ class MusicPlayer:
      return self.seek_offset
     
     def seek(self, seconds):
-        '''this jumps to a specific part of the song'''
+        
         self.seek_offset = seconds
         self.is_playing = True
         pygame.mixer.music.play(start=seconds)
 
     def pause(self):
-        """Pause the current song"""
+      
         if self.is_playing:
             pygame.mixer.music.pause()
             self.is_playing = False
 
     def resume(self):
-        """Resume the paused song"""
+   
         if not self.is_playing:
             pygame.mixer.music.unpause()
             self.is_playing = True
             
     def seek_to_percentage(self, percentage):
-     """Jump to a specific point in the song using a percentage (0 to 1)"""
+
      if self.current_song and self.song_length > 0:
         seek_seconds = percentage * self.song_length
         self.seek_remember = seek_seconds  # remember where we jumped to
         self.seek(seek_seconds)
 
     def toggle_play_pause(self):
-        """Switch between play and pause"""
+   
         if self.is_playing:
             self.pause()
         else:
