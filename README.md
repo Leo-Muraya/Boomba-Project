@@ -1,4 +1,4 @@
-# Boomba-FM
+# Spotify clone
 
 Boomba-FM is a desktop music player built with Python and CustomTkinter. It provides a graphical interface for browsing a song library, playing audio, creating playlists, and adding new songs.
 
